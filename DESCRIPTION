@@ -1,0 +1,12 @@
+Package: microflowseq
+Type: Package
+Title: Calculate probabilities for mFLOW-Seq
+Version: 0.1.0
+Author: Kyle Bittinger
+Maintainer: Kyle Bittinger <bittingerk@chop.edu>
+Description: Recover probability of bacteria being sorted into various channels
+  in mFLOW-Seq experiments.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
