@@ -39,7 +39,7 @@ devtools::load_all()
 library(microflowseq)
 ```
 
-```{r}
+```{r message=FALSE}
 library(tidyverse)
 ```
 
