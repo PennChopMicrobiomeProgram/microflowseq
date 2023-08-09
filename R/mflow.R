@@ -11,6 +11,7 @@ renormalize <- function (x, total = 1) {
 #' @param fraction_abundances Total abundance for each mFLOW channel
 #' @return A vector of probabilities that the ASV was tagged in each channel.
 #' @export
+#'
 mflow_probability <- function (asv_proportions, fraction_abundances) {
   renormalize(asv_proportions * fraction_abundances)
 }
@@ -23,6 +24,7 @@ mflow_probability <- function (asv_proportions, fraction_abundances) {
 #' @param fraction_abundances Total abundance for each mFLOW channel
 #' @return A matrix of probabilities that each ASV was tagged in each channel.
 #' @export
+#'
 mflow_apply <- function (asv_matrix, fraction_abundances) {
   t(apply(asv_matrix, 1, mflow_probability, fraction_abundances))
 }
