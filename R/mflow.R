@@ -1,4 +1,10 @@
-renormalize <- function (x, total = 1) {
+#' Ensure that the sum of a vector equals a given total
+#'
+#' @param x A numeric vector
+#' @param total The desired sum
+#' @return The original vector scaled to sum to the given total
+#' @export
+normalize_sum <- function (x, total = 1) {
   total * x / sum(x)
 }
 
@@ -12,7 +18,7 @@ renormalize <- function (x, total = 1) {
 #' @return A vector of probabilities that the ASV was tagged in each channel.
 #' @export
 mflow_probability <- function (asv_proportions, fraction_abundances) {
-  renormalize(asv_proportions * fraction_abundances)
+  normalize_sum(asv_proportions * fraction_abundances)
 }
 
 #' mFLOW-Seq probabilities for ASV data in matrix or data frame format

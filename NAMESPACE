@@ -2,3 +2,4 @@
 
 export(mflow_apply)
 export(mflow_probability)
+export(normalize_sum)
