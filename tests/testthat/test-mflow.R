@@ -1,3 +1,5 @@
+library(tidyverse)
+
 test_that("mflow_probability works", {
   props <- c(0.0037825570, 0.0006065385, 0.0010901371, 0.0010616181)
   fracs <- c(0.146, 0.161, 0.237, 0.36)
@@ -6,8 +8,9 @@ test_that("mflow_probability works", {
 })
 
 test_that("mflow_apply works", {
-  props <- readRDS(test_path("fixtures", "iggASVProps.rda"))
-  fracs <- readRDS(test_path("fixtures", "iggFracs.rda"))
+  print(test_path("fixtures", "iggASVProps.rds"))
+  props <- load(file = test_path("fixtures", "iggASVProps.rds"))
+  fracs <- readRDS(test_path("fixtures", "iggFracs.rds"))
   expectedProbs <- c()
   expect_equal(mflow_apply(props[,-1], fracs), expectedProbs)
 })
