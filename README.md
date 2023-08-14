@@ -42,11 +42,9 @@ dual_cts
 For each species, we are interested in the probability of finding an
 organism in the IgA+ or IgA- fraction. This is straightforward to
 calculate if we know the absolute number of organisms: we simply
-calculate a probability across each row.[^1]
-
-The `microflowseq` package provides a function, `normalize_sum()` to
-perform the common task of converting to probability or relative
-abundance.
+calculate a probability across each row.[^1] The `microflowseq` package
+provides a function, `normalize_sum()` to perform the common task of
+converting to probability or relative abundance.
 
 ``` r
 t(apply(dual_cts, 1, normalize_sum))
