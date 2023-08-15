@@ -1,35 +1,31 @@
-#' IgG
+#' IgG Proportions
 #'
-#' @format ## `igg`
+#' @format ## `iggASVProps`
 #' A data frame:
 #' \describe{
-#'   \item{Taxa}{}
-#'   \item{SampleID}{}
-#'   \item{props}{}
-#'   \item{SubjectID}{}
-#'   \item{Analysis4}{}
-#'   \item{Population}{}
-#'   \item{Name}{}
-#'   \item{SNV}{}
-#'   \item{fraction}{}
-#'   ...
+#'   \item{Taxa}{The relevant ASV}
+#'   \item{Populations}{Four population columns}
 #' }
-"igg"
+"iggASVProps"
 
-#' IgM
+#' IgM Proportions
 #'
-#' @format ## `igm`
+#' @format ## `igmASVProps`
 #' A data frame:
 #' \describe{
-#'   \item{Taxa}{}
-#'   \item{SampleID}{}
-#'   \item{props}{}
-#'   \item{SubjectID}{}
-#'   \item{Analysis4}{}
-#'   \item{Population}{}
-#'   \item{Name}{}
-#'   \item{SNV}{}
-#'   \item{fraction}{}
-#'   ...
+#'   \item{Taxa}{The relevant ASV}
+#'   \item{Populations}{Four population columns}
 #' }
-"igm"
+"igmASVProps"
+
+#' IgG Fractions
+#'
+#' @format ## `iggFracs`
+#' A vector containing fractions applied to each of the population columns in order
+"iggFracs"
+
+#' IgM Fractions
+#'
+#' @format ## `igmFracs`
+#' A vector containing fractions applied to each of the population columns in order
+"igmFracs"
