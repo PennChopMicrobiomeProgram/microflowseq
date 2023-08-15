@@ -1,0 +1,67 @@
+---
+title: "mflow"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{mflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(microflowseq)
+```
+
+```{r}
+props <- c(0.0037825570, 0.0006065385, 0.0010901371, 0.0010616181)
+fracs <- c(0.146, 0.161, 0.237, 0.36)
+
+mflow_probability(props, fracs)
+```
+
+Expected Value: c(0.427953722771148, 0.0756733082390105, 0.200211001311819, 0.296161967678021)
+
+```{r}
+iggParseASVProps <- function (df, sid) {
+  df %>%
+   filter(SubjectID == sid) %>%
+   spread(Population, props) %>%
+   select(-one_of(c("SampleID", "SubjectID", "Analysis4", "Name", "SNV", "fraction"))) %>%
+   group_by(Taxa) %>%
+   fill(`IgA-IgM-IgG-`, `IgG+IgM-`, `IgG+IgM+`, `IgM+IgG-`, .direction = 'up') %>%
+   filter(!is.na(`IgM+IgG-`))
+}
+
+igmParseASVProps <- function (df, sid) {
+  df %>%
+   filter(SubjectID == sid) %>%
+   spread(Population, props) %>%
+   select(-one_of(c("SampleID", "SubjectID", "Analysis4", "Name", "SNV", "fraction"))) %>%
+   group_by(Taxa) %>%
+   fill(`IgA-IgM-IgG-`, `IgA+IgM-`, `IgM+IgA-`, `IgM+IgA+`, .direction = 'up') %>%
+   filter(!is.na(`IgA+IgM-`))
+}
+
+parseFracs <- function (df, sid) {
+  df <- df %>%
+   filter(SubjectID == sid) %>%
+   spread(Population, props) %>%
+   select(-one_of(c("SampleID", "SubjectID", "Analysis4", "Name", "SNV"))) %>%
+   group_by(Taxa)
+  df[1:4,][["fraction"]]
+}
+
+iggASVProps <- iggParseASVProps(igg, "F1-1")
+iggFracs <- parseFracs(igg, "F1-1")
+igmASVProps <- igmParseASVProps(igm, "F1-1")
+igmFracs <- parseFracs(igm, "F1-1")
+
+mflow_apply(iggASVProps[,-1], iggFracs)
+mflow_apply(igmASVProps[,-1], igmFracs)
+```
