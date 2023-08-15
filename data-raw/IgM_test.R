@@ -6,18 +6,7 @@ library(tidyr)
 # Taxa	SampleID	props	SubjectID	Analysis4	Population	Name	SNV	fraction
 # An example row:
 # Firmicutes Blautia 00a96fbd0ac34bfd245f9c24f8737f7d	IDAHO027	0.000899949133309856	F2-2	Pos_Stool	IgM+IgG-	Firmicutes Blautia	00a96fbd0ac34bfd245f9c24f8737f7d	0.322
-igg <- read_delim("data-raw/IgG_test.txt")
 igm <- read_delim("data-raw/IgM_test.txt")
-
-iggParseASVProps <- function (df, sid) {
-  df %>%
-    filter(SubjectID == sid) %>%
-    spread(Population, props) %>%
-    select(-one_of(c("SampleID", "SubjectID", "Analysis4", "Name", "SNV", "fraction"))) %>%
-    group_by(Taxa) %>%
-    fill(`IgA-IgM-IgG-`, `IgG+IgM-`, `IgG+IgM+`, `IgM+IgG-`, .direction = 'up') %>%
-    filter(!is.na(`IgM+IgG-`))
-}
 
 igmParseASVProps <- function (df, sid) {
   df %>%
@@ -38,12 +27,8 @@ parseFracs <- function (df, sid) {
   df[1:4,][["fraction"]]
 }
 
-iggASVProps <- iggParseASVProps(igg, "F1-1")
-iggFracs <- parseFracs(igg, "F1-1")
 igmASVProps <- igmParseASVProps(igm, "F1-1")
 igmFracs <- parseFracs(igm, "F1-1")
 
-usethis::use_data(iggASVProps, overwrite = TRUE)
-usethis::use_data(iggFracs, overwrite = TRUE)
 usethis::use_data(igmASVProps, overwrite = TRUE)
 usethis::use_data(igmFracs, overwrite = TRUE)
