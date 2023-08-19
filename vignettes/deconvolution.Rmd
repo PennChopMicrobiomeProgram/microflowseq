@@ -1,0 +1,81 @@
+---
+title: "deconvolution"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{deconvolution}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r include=FALSE}
+devtools::load_all()
+```
+
+```{r eval=FALSE}
+library(microflowseq)
+```
+
+Following the deconvolution example at
+https://www.nature.com/articles/s41591-019-0480-9/figures/7
+
+The correct answer for the count of balls that are pink and blue, large and
+small.
+
+```{r}
+pb_correct <- cbind(
+  small = c(pink = 12, blue = 11),
+  large = c(pink = 6, blue = 5))
+pb_correct
+```
+
+The large and small balls aren't sorted perfectly. Here are the pink and blue
+balls that we measure in each fraction.
+
+```{r}
+pb_sorted <- cbind(
+  small.fraction = c(pink = 11, blue = 10),
+  large.fraction = c(pink = 7, blue = 6))
+pb_sorted
+```
+
+We can sort again to measure how many small and large balls were in each
+fraction.
+
+```{r}
+pb_postsep <- cbind(
+  small = c(small.fraction = 18 / 21, large.fraction = 3 / 21),
+  large = c(small.fraction =  5 / 13, large.fraction = 8 / 13))
+pb_postsep
+```
+
+In the figure, they show us how to solve for the absolute number of pink and
+blue balls in each fraction. Let's compute that and compare to the correct
+answer.
+
+```{r}
+pb_sorted %*% t(pb_postsep)
+pb_correct
+```
+In an experiment, we measure the relative abundance of pink and blue balls in
+each fraction. Here are the relative abundances we measure in each fraction.
+
+```{r}
+pb_sorted_relabund <- apply(pb_sorted, 2, normalize_sum)
+pb_sorted_relabund
+```
+
+Solve for the correct relative abundance of balls and compare to the correct
+answer. Success!
+
+```{r}
+apply(pb_sorted_relabund %*% t(pb_postsep), 2, normalize_sum)
+apply(pb_correct, 2, normalize_sum)
+```
+
