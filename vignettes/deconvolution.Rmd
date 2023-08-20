@@ -49,9 +49,9 @@ We can sort again to measure how many small and large balls were in each
 fraction.
 
 ```{r}
-pb_postsep <- cbind(
-  small = c(small.fraction = 18 / 21, large.fraction = 3 / 21),
-  large = c(small.fraction =  5 / 13, large.fraction = 8 / 13))
+pb_postsep <- rbind(
+  small.fraction = c(small = 18 / 21, large = 3 / 21),
+  large.fraction = c(small =  5 / 13, large = 8 / 13))
 pb_postsep
 ```
 
@@ -60,7 +60,7 @@ blue balls in each fraction. Let's compute that and compare to the correct
 answer.
 
 ```{r}
-pb_sorted %*% t(pb_postsep)
+pb_sorted %*% pb_postsep
 pb_correct
 ```
 In an experiment, we measure the relative abundance of pink and blue balls in
@@ -71,11 +71,11 @@ pb_sorted_relabund <- apply(pb_sorted, 2, normalize_sum)
 pb_sorted_relabund
 ```
 
-Solve for the correct relative abundance of balls and compare to the correct
-answer. Success!
+Solve for the relative abundance of balls and compare to the correct answer.
+Success!
 
 ```{r}
-apply(pb_sorted_relabund %*% t(pb_postsep), 2, normalize_sum)
+apply(pb_sorted_relabund %*% pb_postsep, 2, normalize_sum)
 apply(pb_correct, 2, normalize_sum)
 ```
 
