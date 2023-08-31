@@ -4,6 +4,10 @@
 # microflowseq
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/PennChopMicrobiomeProgram/microflowseq/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/PennChopMicrobiomeProgram/microflowseq/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/PennChopMicrobiomeProgram/microflowseq/branch/main/graph/badge.svg)](https://app.codecov.io/gh/PennChopMicrobiomeProgram/microflowseq?branch=main)
 <!-- badges: end -->
 
 The goal of microflowseq is to assign probabilities to bacteria that are
@@ -183,7 +187,7 @@ dual_fracs_df <- dual_fracs |>
   mutate(specimen_id = "Specimen1") |>
   select(specimen_id, everything())
 dual_fracs_df
-#> # A tibble: 2 × 3
+#> # A tibble: 2 x 3
 #>   specimen_id fraction fraction_abundance
 #>   <chr>       <chr>                 <dbl>
 #> 1 Specimen1   IgA+                    420
@@ -211,7 +215,7 @@ dual_props_df <- dual_props |>
   mutate(specimen_id = "Specimen1") |>
   select(specimen_id, fraction, everything())
 dual_props_df
-#> # A tibble: 4 × 4
+#> # A tibble: 4 x 4
 #>   specimen_id fraction asv     asv_abundance
 #>   <chr>       <chr>    <chr>           <dbl>
 #> 1 Specimen1   IgA+     e.coli          0.417
@@ -237,7 +241,7 @@ dual_props_df |>
   left_join(dual_fracs_df, by = c("specimen_id", "fraction")) |>
   group_by(specimen_id, asv) |>
   mutate(fraction_prob = mflow_probability(asv_abundance, fraction_abundance))
-#> # A tibble: 4 × 6
+#> # A tibble: 4 x 6
 #> # Groups:   specimen_id, asv [2]
 #>   specimen_id fraction asv     asv_abundance fraction_abundance fraction_prob
 #>   <chr>       <chr>    <chr>           <dbl>              <dbl>         <dbl>
