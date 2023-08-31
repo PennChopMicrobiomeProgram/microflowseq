@@ -10,7 +10,15 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
-Suggests: 
+Depends: 
+    R (>= 2.10)
+Suggests:
+    devtools,
+    dplyr,
     knitr,
-    rmarkdown
+    rmarkdown,
+    tidyr,
+    tidyverse,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
 VignetteBuilder: knitr
